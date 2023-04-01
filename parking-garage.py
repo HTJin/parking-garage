@@ -57,8 +57,6 @@ class Garage():
             else:
                 print("You entered the wrong license plate number, try again!")
     
-    def __repr__(self):
-        return f"Hello, welcome to {self.garage_name}! We have {self.tickets_available} spaces available!\nWe charge ${self.RATE:.2f} per hour."
     
     def leaveGarage(self):
         for customer in self.current_customers:
@@ -69,6 +67,9 @@ class Garage():
             else:
                 print("Looks like you have not paid for your ticket yet.")
                 self.payForParking()
+    
+    def __repr__(self):
+        return f"Hello, welcome to {self.garage_name}! We have {self.tickets_available} spaces available!\nWe charge ${self.RATE:.2f} per hour."
 
     def run(self):
         print(self.__repr__())
@@ -114,7 +115,7 @@ class Customer():
         self.end_time = datetime.now()
         return (self.end_time - self.start_time).total_seconds()
 
-our_garage = Garage('GARAGELAND', 2)
+our_garage = Garage('GARAGELAND', 30)
 our_garage.run()
 # randomguy = Customer('28382891')
 # print(randomguy.start_time)
