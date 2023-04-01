@@ -57,7 +57,6 @@ class Garage():
             else:
                 print("You entered the wrong license plate number, try again!")
     
-    
     def leaveGarage(self):
         for customer in self.current_customers:
             if customer.paid:
