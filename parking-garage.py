@@ -10,21 +10,16 @@ class Garage():
     
     def takeTicket(self):
         print()
-        going = True
-        while going:
+        while True:
             vehicle = input("License plate number? ").lower().strip()
-            if len(self.current_customers) > 0:
-                for customer in self.current_customers:
-                    if customer.plate == vehicle:
-                        print("This vehicle is already registered with a ticket. Input license plate number again.")
-                    else:
-                        going = False
+            if any(customer.plate == vehicle for customer in self.current_customers):
+                print("This vehicle is already registered with a ticket. Input license plate number again.")
             else:
-                going = False
-        customer = Customer(vehicle)
-        self.current_customers.append(customer)
-        self.tickets_available -= 1
-        print(f"Your ticket has been created with your license plate, {vehicle}")
+                customer = Customer(vehicle)
+                self.current_customers.append(customer)
+                self.tickets_available -= 1
+                print(f"Your ticket has been created with your license plate, {vehicle}")
+                break
 
     def payForParking(self):
         print("\nPAYMENT MENU >")
@@ -39,7 +34,7 @@ class Garage():
                     cost_per_time = self.RATE * elapsed_time
                     print(f"\nYou will be charged ${cost_per_time:.2f} for your stay of {elapsed_time:.2f} hours!")
                     while True:
-                        pay = input("Are you ready to check out? [y/n] ").lower().strip()
+                        pay = input("Are you ready to check out? [y/n]: ").lower().strip()
                         if pay == 'y':
                             customer.paid = True
                             self.current_customers.remove(customer)
@@ -76,7 +71,7 @@ class Garage():
         while going:
             print(f"\n[-- You have reached {self.garage_name}'s Parking Kiosk --]")
             print("MAIN MENU >\n")
-            response = input("Take a ticket or leave? [take, pay, leave] ").lower()
+            response = input("Take a ticket or leave? [take, pay, leave]: ").lower()
             if response == 'take':
                 if self.tickets_available > 0:
                     self.takeTicket()
